@@ -1,12 +1,14 @@
 <h1>Result</h1>
 
-<% if @result == "NotInLetters" %>
+<% unless @use_grid_only %>
   <p>Sorry but <strong><%= @proposal %></strong> can't be built out of <%= @letters %></p>
-<% elsif @result == "InvalidWord" %>
-  <p>Sorry but <strong><%= @proposal %></strong> does not seem to be a valid English word.</strong> </p>
 <% else %>
-  <p><strong>Congratulations</strong>, <%= @proposal %> is a valid english word!</p>
-  <p>You earned <strong><%= @points %></strong> points with this word</p>
+  <% if @valid_word %>
+    <p><strong>Congratulations</strong>, <%= @proposal %> is a valid english word!</p>
+    <p>You earned <strong><%= @points %></strong> points with this word</p>
+  <% else %>
+    <p>Sorry but <strong><%= @proposal %></strong> does not seem to be a valid English word.</strong> </p>
+  <% end %>
 <% end %>
 
 <p>Total score : <strong><%= @total_score %></strong></p>
