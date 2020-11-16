@@ -6,8 +6,9 @@
   <p>Sorry but <strong><%= @proposal %></strong> does not seem to be a valid English word.</strong> </p>
 <% else %>
   <p><strong>Congratulations</strong>, <%= @proposal %> is a valid english word!</p>
+  <p>You earned <strong><%= @points %></strong> points with this word</p>
 <% end %>
 
-<%= @duration %>
+<p>Total score : <strong><%= @total_score %></strong></p>
 
 <%= link_to "Play again", new_path %>

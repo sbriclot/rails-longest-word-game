@@ -1,5 +1,4 @@
 require 'open-uri'
-require 'json'
 
 class GamesController < ApplicationController
   def new
@@ -7,6 +6,25 @@ class GamesController < ApplicationController
     @letters = [];
     10.times { @letters << alphabet.sample }
   end
+
+  def score
+    @proposal = params[:proposal].upcase
+    ary_letters = params[:letters].split
+    @letters = ary_letters.join(", ")
+    unless use_grid_letters?(ary_letters, @proposal)
+      @result = "NotInLetters"
+    else
+      @result = word_in_dictionnary?(@proposal)
+      if @result == "Win"
+        @points = @proposal.length
+        save_score(get_score + @points)
+      end
+    end
+    @total_score = get_score
+    
+  end
+  
+  private
 
   def use_grid_letters?(letters, proposal)
     proposal.upcase.split("") do |letter|
@@ -23,17 +41,6 @@ class GamesController < ApplicationController
       return "Win"
     else
       return "InvalidWord"
-    end
-  end
-
-  def score
-    @proposal = params[:proposal].upcase
-    ary_letters = params[:letters].split
-    @letters = ary_letters.join(", ")
-    unless use_grid_letters?(ary_letters, @proposal)
-      @result = "NotInLetters"
-    else
-      @result = word_in_dictionnary?(@proposal)
     end
   end
 end
