@@ -1,0 +1,13 @@
+<h1>Result</h1>
+
+<% if @result == "NotInLetters" %>
+  <p>Sorry but <strong><%= @proposal %></strong> can't be built out of <%= @letters %></p>
+<% elsif @result == "InvalidWord" %>
+  <p>Sorry but <strong><%= @proposal %></strong> does not seem to be a valid English word.</strong> </p>
+<% else %>
+  <p><strong>Congratulations</strong>, <%= @proposal %> is a valid english word!</p>
+<% end %>
+
+<%= @duration %>
+
+<%= link_to "Play again", new_path %>
